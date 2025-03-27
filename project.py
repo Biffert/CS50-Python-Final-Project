@@ -6,14 +6,21 @@ from tabulate import tabulate # Library 'tabulate[widechars]' required for emoji
 from random import choice
 from pyfiglet import Figlet
 
-
+# Initialize ASCII font
 os.system("clear")
 figlet = Figlet()   # Create header font
 figlet.setFont(font="slant")    # Set header font
 
+# Initialize color font
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+def prMagenta(skk): print("\033[95m {}\033[00m" .format(skk))
+def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
+
+
 def main():
+
     # Print title
-    print(figlet.renderText("Mine Finder"))
+    prGreen(figlet.renderText("Mine Finder"))
 
     # Enter field size
     while True:
@@ -48,7 +55,8 @@ def main():
                     mine_field = parse_move(player_move, mine_field, bomb_location)
                     os.system("clear")
                     print(tabulate(mine_field, headers="keys", tablefmt="double_grid"))
-                    sys.exit(figlet.renderText("Your head a splode!"))
+                    prMagenta(figlet.renderText("Your head a splode!"))
+                    sys.exit()
                 else:
                     previous_moves.append(player_move) # Store player_move in previous_moves
                     break
@@ -56,12 +64,14 @@ def main():
             mine_field = parse_move(player_move, mine_field, bomb_location)
         except KeyboardInterrupt:
             print("\n")
-            sys.exit(figlet.renderText("Goodbye!"))
+            prCyan(figlet.renderText("Goodbye!"))
+            sys.exit()
 
     # Print "You survived!" when all fields have been cleared
     os.system("clear")
     print(tabulate(mine_field, headers="keys", tablefmt="double_grid"))
-    sys.exit(figlet.renderText("You survived!"))
+    prGreen(figlet.renderText("You survived!"))
+    sys.exit()
 
 def generate_field(difficulty): # Generates mine field in a list of dictionaries
     mine_field = []
