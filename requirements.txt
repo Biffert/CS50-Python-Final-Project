@@ -1,0 +1,3 @@
+"tabulate[widechars]"
+"tabulate"
+"pyfiglet"
